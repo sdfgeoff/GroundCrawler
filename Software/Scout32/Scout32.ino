@@ -23,6 +23,7 @@ int maxconnection = 1; // Only allow one at a time
 #include "soc/rtc_cntl_reg.h"
 
 #include "chassis.h"
+#include "pages.h"
 
 // Camera Pin Definitions - Don't heckin' touch.
 #define PWDN_GPIO_NUM     32
@@ -90,18 +91,16 @@ void setup()
   }
   // camera init
   esp_err_t err = esp_camera_init(&config);
-  if (err != ESP_OK) {
+  if (err == ESP_OK) {
+    //drop down frame size for higher initial frame rate
+    sensor_t * s = esp_camera_sensor_get();
+    s->set_framesize(s, FRAMESIZE_QVGA);
+    s->set_vflip(s, 1);
+    s->set_hmirror(s, 1);
+  } else {
     Serial.printf("Camera init failed with error 0x%x", err);
-    return;
   }
-  //drop down frame size for higher initial frame rate
-  sensor_t * s = esp_camera_sensor_get();
-  s->set_framesize(s, FRAMESIZE_QVGA);
-  s->set_vflip(s, 1);
-  s->set_hmirror(s, 1);
-
   
-  // Initialize Servos & LEDs
   initChassis();
   
 

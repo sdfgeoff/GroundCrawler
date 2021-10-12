@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="control.js"></script>
+  <title>Wifi Rover Control</title>
+</head>
+
+<body>
+  <section id="main">
+    <div id="stream-container" class="image-container">
+      <a href="capture" download="capture.jpg">
+      <img id="stream" src="loading.jpg">
+      </a>
+    </div>
+    <div id="control" , class="control">
+      <svg id="dpad" version="1.1" viewBox="-100 -100 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g id="padstyle" fill="none" stroke="#000" stroke-width="2">
+          <path d="m-10 -20 v-30 h-10 l 20 -30  20  30 h -10 v30" />
+          <path d="m10 20   v 30 h 10 l-20  30 -20 -30 h  10 v-30" />
+          <path d="m-20 10  h-30 v10  l-30 -20  30 -20 v  10 h30" />
+          <path d="m20 -10  h 30 v-10 l 30  20 -30  20 v -10 h-30" />
+          <circle id="deadzone" cx="0" cy="0" r="10" />
+          <circle id="indicator" cx="0" cy="0" r="20" />
+          <rect id="boundary" x="-100" y="-100" width="200" height="200" />
+        </g>
+      </svg>
+      <button onclick="showSettings()">Settings</button>
+    </div>
+    <div id="settings-background" onclick="hideSettings()"></div>
+    <div id="settings">
+      <h1>Settings</h1>
+      <table class="settings-table">
+        <tr>
+          <td>Lights</td>
+          <td><input type="range" id="flash" min="0" max="255" value="10"
+              onchange="setParameter('flash', this.value)"></td>
+        </tr>
+        
+        <tr>
+          <td colspan="2"><h2>Video</h2></td>
+        </tr>
+        <tr>
+          <td>Quality</td>
+          <td><input type="range" id="quality" min="10" max="63" value="10"
+              onchange="setParameter('quality', this.value)"></td>
+        </tr>
+        <tr>
+          <td>Resolution</td>
+          <td><input type="range" id="framesize" min="0" max="6" value="5"
+              onchange="setParameter('framesize', this.value)"></td>
+        </tr>
+      </table>
+      <button onclick="hideSettings()">Close</button>
+      </div>
+  </section>
+  </section>
+</body>
+
+</html>
